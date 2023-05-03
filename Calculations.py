@@ -3,7 +3,9 @@
 ###########################################################################################
 
 import matplotlib.pyplot as plt
-import numpy
+import numpy as np
+import scipy.stats as stats
+
 
 class Calculations:
 
@@ -29,6 +31,12 @@ class Calculations:
         self.variance = summation/(len(array)-1)
         return self.variance
 
-    #Plot Gaussian function
+    def plot_gaussian(self, security_name, mean, std):
+        x = np.linspace(mean - 3 * std , mean + 3 * std, 100)
+        plt.plot(x, stats.norm.pdf(x, mean, std))
+        plt.xlabel("Daily Return Percentage")
+        plt.ylabel("Density")
+        plt.title(f"Standard Normal Distribution of {security_name}'s Daily Returns")
+        plt.show()
 
 

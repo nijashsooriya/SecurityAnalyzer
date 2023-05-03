@@ -95,6 +95,13 @@ class Security:
         except:
             return "There was an error in the parameters. Please ensure that the dates line up"
 
+    def plot_security(self, firstDate, secondDate):
+        self.get_security_mean(firstDate, secondDate)
+        self.get_std(firstDate, secondDate)
+        mean = self.security_Obj.mean
+        std =  pow((self.security_Obj.variance/100), 1/2)
+        self.security_Obj.plot_gaussian(self.security.info["shortName"] ,mean, std)
+
 
 if __name__ == "__main__":
     Amazon = Security("AMZN")
@@ -113,3 +120,4 @@ if __name__ == "__main__":
     print(Roblox.get_std((2022, 4, 30), (2023, 4, 30)))
     print(Roblox.get_portfolio())
     print(Roblox.get_portfolio_variance(Amazon, 0.5, Roblox, 0.5, (2022, 4, 30), (2023, 4, 30)))
+    Roblox.plot_security((2022, 4, 30), (2023, 4, 30))
