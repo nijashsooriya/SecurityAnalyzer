@@ -56,11 +56,12 @@ class Portfolio:
             mean_dict[self.portfolio[i].get_name()] = mean
             variance_dict[self.portfolio[i].get_name()] = variance
         for key in variance_dict:
-            weight_variance_prod += ((variance_dict[key]/100)**2)*(weight_dict[key]**2)
+            weight_variance_prod += ((variance_dict[key]/100))*(weight_dict[key]**2)
         names = self.get_portfolio()
         unique_combos =  Calculations.combinations(names)
         covariance = 0
         for set_id in unique_combos:
             covariance += 2*weight_dict[set_id[0]]*weight_dict[set_id[1]]*self.get_portfolio_covariance(set_id[0], set_id[1], firstDate, secondDate)[0]
         portfolio_variance = covariance + weight_variance_prod
-        return portfolio_variance
+        portfolio_std = pow(portfolio_variance, 1/2)
+        return portfolio_variance*100, portfolio_std*100
