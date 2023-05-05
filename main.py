@@ -12,7 +12,8 @@ if __name__ == "__main__":
     print(Amazon.get_std((2022, 4, 30), (2023, 4, 30)))
 
     portfolio = Portfolio()
-    portfolio.addSecurity(["AMZN", "RBLX"])
+    portfolio.addSecurity(["AMZN", "RBLX", "KO", "LITH.V"])
     print(portfolio.get_portfolio())
-    print(portfolio.get_portfolio_variance(1, 0, (2022, 4, 30), (2023, 4, 30)))
+    print(portfolio.get_portfolio_variance_multi({"AMZN": 0.25, "RBLX":0.25,"KO": 0.25, "LITH.V": 0.25}, (2022, 4, 30), (2023, 4, 30)))
+    Calculations.combinations(portfolio.get_portfolio())
 

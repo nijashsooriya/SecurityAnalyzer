@@ -18,7 +18,7 @@ class Security:
         self.security_list = None
 
     def get_name(self):
-        return self.security.info["shortName"]
+        return self.security.info["symbol"]
 
     def get_trailing_eps(self):
         return "The trailing EPS is: " + str(self.security.info['trailingEps'])
@@ -66,4 +66,4 @@ class Security:
         self.get_std(firstDate, secondDate)
         mean = self.security_Obj.mean
         std = pow((self.security_Obj.variance / 100), 1 / 2)
-        self.security_Obj.plot_gaussian(self.security.info["shortName"], mean, std)
+        self.security_Obj.plot_gaussian(self.security.info["symbol"], mean, std)

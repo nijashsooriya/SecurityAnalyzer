@@ -5,7 +5,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.stats as stats
-
+from itertools import combinations
 
 class Calculations:
 
@@ -38,5 +38,7 @@ class Calculations:
         plt.ylabel("Density")
         plt.title(f"Standard Normal Distribution of {security_name}'s Daily Returns")
         plt.show()
-
-
+    @staticmethod
+    def combinations(array):
+        comb = list(combinations(array, 2))
+        return comb
