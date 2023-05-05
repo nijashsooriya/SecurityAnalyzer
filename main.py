@@ -12,8 +12,10 @@ if __name__ == "__main__":
     print(Amazon.get_std((2022, 4, 30), (2023, 4, 30)))
 
     portfolio = Portfolio()
-    portfolio.addSecurity(["AMZN", "RBLX", "KO", "LITH.V"])
     print(portfolio.get_portfolio())
-    portfolio_variance = (portfolio.get_portfolio_variance({"AMZN": 0.25, "RBLX":0.25, "KO": 0.25, "LITH.V": 0.25}, (2022, 4, 30), (2023, 4, 30)))
-    portfolio_mean = (portfolio.get_portfolio_mean({"AMZN": 0.25, "RBLX":0.25,"KO": 0.25, "LITH.V": 0.25}, (2022, 4, 30), (2023, 4, 30)))
+    weight_dict = Calculations.calculate_weighting({"BIGG.CN":89.78, "DWAC":155.07, "EMAN" : 200.6, "GBML.V": 61.69, "INTC" : 248.6, "LCID": 139.23, "LITH.V": 51.10, "LUN.TO":501.49, "PBL.TO" :243.55, "PYPL.NE":154.71, "RBLX": 350.40, "SNDL" : 8.65, "USM" : 103.44})
+    weight_dict = portfolio.addWeightedSecurity(weight_dict)
+    print(portfolio.get_portfolio_variance(weight_dict, (2022, 4, 30), (2023, 4, 30)))
+    print(portfolio.get_portfolio_mean(weight_dict, (2022, 4, 30), (2023, 4, 30)))
     portfolio.plot_portfolio()
+

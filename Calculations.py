@@ -42,3 +42,12 @@ class Calculations:
     def combinations(array):
         comb = list(combinations(array, 2))
         return comb
+    @staticmethod
+    def calculate_weighting(portfolio_dict):
+        total = 0
+        for key in portfolio_dict:
+            total += portfolio_dict[key]
+        weight_dict = dict()
+        for key in portfolio_dict:
+            weight_dict[key] = (portfolio_dict[key]/total)
+        return weight_dict

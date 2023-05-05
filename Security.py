@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy
 
 
+
 class Security:
     security_Obj = Calculations()
     # Array of securities, a portfolio
