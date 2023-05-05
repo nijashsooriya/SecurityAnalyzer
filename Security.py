@@ -16,7 +16,9 @@ class Security:
     def __init__(self, name):
         self.security = yfinance.Ticker(name)
         self.security_list = None
-        self.portfolio.append(name)
+
+    def get_name(self):
+        return self.security.info["shortName"]
 
     def get_trailing_eps(self):
         return "The trailing EPS is: " + str(self.security.info['trailingEps'])
@@ -55,69 +57,13 @@ class Security:
         try:
             self.get_security_variance(firstDate, secondDate)
             return f"The standard deviation of this security's return from {firstDate} to {secondDate} was: " + str(
-                (pow(self.security_Obj.variance/100, 0.5))*100) + "%"
+                (pow(self.security_Obj.variance / 100, 0.5)) * 100) + "%"
         except:
             return "This is an invalid date"
-
-    def get_portfolio(self):
-        return self.portfolio
-
-    def get_portfolio_covariance(self, security1, security2, firstDate, secondDate):
-        security1.get_security_mean(firstDate, secondDate)
-        security1.get_security_variance(firstDate, secondDate)
-        mean1 = self.security_Obj.mean
-        variance1 = self.security_Obj.variance
-
-        security2.get_security_mean(firstDate, secondDate)
-        security2.get_security_variance(firstDate, secondDate)
-        mean2 = self.security_Obj.mean
-        variance2 = self.security_Obj.variance
-        cov = 0
-
-        for i in range(len(security1.security_list)):
-            cov1 = (security1.security_list[i]) - mean1
-            cov2 = (security2.security_list[i]) - mean2
-            cov += cov1 * cov2
-        cov /= (len(security1.security_list) - 1)
-        return cov, variance1, variance2
-
-    def get_portfolio_variance(self, security1, weight1, security2, weight2, firstDate, secondDate):
-        try:
-            covariance_list = self.get_portfolio_covariance(security1, security2, firstDate, secondDate)
-            covariance = covariance_list[0]
-            variance1 = covariance_list[1]
-            variance2 = covariance_list[2]
-            portfolio_variance = (weight1 ** 2) * variance1 + (
-                        weight2 ** 2) * variance2 + 2 * weight1 * weight2 * covariance
-            portfolio_std = pow(portfolio_variance / 100, 1 / 2) * 100
-            return f"The resulting portfolio variance is {portfolio_variance}% and the standard deviation of the portfolio is {portfolio_std}% and" \
-                   f" the covariance of the pair is {covariance}"
-        except:
-            return "There was an error in the parameters. Please ensure that the dates line up"
 
     def plot_security(self, firstDate, secondDate):
         self.get_security_mean(firstDate, secondDate)
         self.get_std(firstDate, secondDate)
         mean = self.security_Obj.mean
-        std =  pow((self.security_Obj.variance/100), 1/2)
-        self.security_Obj.plot_gaussian(self.security.info["shortName"] ,mean, std)
-
-
-if __name__ == "__main__":
-    Amazon = Security("AMZN")
-    print(Amazon.get_trailing_eps())
-    print(Amazon.get_beta())
-    print(Amazon.get_security_mean((2022, 4, 30), (2023, 4, 30)))
-    print(Amazon.get_security_variance((2022, 4, 30), (2023, 4, 30)))
-    print(Amazon.get_std((2022, 4, 30), (2023, 4, 30)))
-    print(Amazon.get_portfolio())
-    Roblox = Security("RBLX")
-    print(Roblox.get_portfolio())
-    print(Roblox.get_trailing_eps())
-    print(Roblox.get_beta())
-    print(Roblox.get_security_mean((2022, 4, 30), (2023, 4, 30)))
-    print(Roblox.get_security_variance((2022, 4, 30), (2023, 5, 30)))
-    print(Roblox.get_std((2022, 4, 30), (2023, 4, 30)))
-    print(Roblox.get_portfolio())
-    print(Roblox.get_portfolio_variance(Amazon, 0.5, Roblox, 0.5, (2022, 4, 30), (2023, 4, 30)))
-    Roblox.plot_security((2022, 4, 30), (2023, 4, 30))
+        std = pow((self.security_Obj.variance / 100), 1 / 2)
+        self.security_Obj.plot_gaussian(self.security.info["shortName"], mean, std)
