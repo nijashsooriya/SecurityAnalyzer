@@ -1,6 +1,7 @@
 ###########################################################################################
 #This file was made by Nijash Sooriya and is not intended for replication
 ###########################################################################################
+import math
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -32,8 +33,13 @@ class Calculations:
         return self.variance
 
     def plot_gaussian(self, security_name, mean, std):
-        x = np.linspace(mean - 3 * std , mean + 3 * std, 100)
+        mean *= 100
+        std *= 100
+        mean_string = str(mean)[:6]
+        x = np.linspace(mean - 2 * std , mean + 2 * std, 100)
         plt.plot(x, stats.norm.pdf(x, mean, std))
+        peak = 1/(std*pow(2*math.pi, 1/2))
+        plt.text(mean, peak, f" <--- Mean: {mean_string}%",)
         plt.xlabel("Daily Return Percentage")
         plt.ylabel("Density")
         plt.title(f"Standard Normal Distribution of {security_name}'s Daily Returns")

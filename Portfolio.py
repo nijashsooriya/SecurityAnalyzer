@@ -6,6 +6,7 @@ import datetime
 from Calculations import Calculations
 from Security import Security
 
+
 class Portfolio():
     security_Obj = Calculations()
     def __init__(self):
